@@ -19,7 +19,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   if (message?.state.serialized == "") {
     stateResponse = {counter: 100000} as StateSchema
   } else {
-    stateResponse = JSON.parse(message?.raw.action.state.serialized as string) as StateSchema
+    stateResponse = JSON.parse(decodeURIComponent(message?.raw.action.state.serialized as string)) as StateSchema
   }
 
   if (message?.button == 1){
