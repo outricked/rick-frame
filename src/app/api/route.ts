@@ -1,12 +1,43 @@
 import { getFrameHtmlResponse, FrameRequest, getFrameMessage  } from '@coinbase/onchainkit/frame';
 import { NextRequest, NextResponse } from 'next/server';
 
+
+interface StateSchema {
+  counter: number;
+}
+
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const frameRequest: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(frameRequest); 
   if (!isValid) {
     // skip validation for now
   }
+  if (message == null){
+    return new NextResponse(
+      getFrameHtmlResponse({
+        buttons: [
+          {
+            label: 'Attack',
+          },
+          {
+            label: 'Heal',
+          },
+          {
+            action: 'post_redirect',
+            label: 'View',
+            target: "https://rick-frame-m413.vercel.app",
+          },
+        ],
+        image: {
+          src:"https://rick-frame-m413.vercel.app/dragon.webp",
+          aspectRatio: "1:1"
+        },
+        postUrl: 'https://rick-frame-m413.vercel.app/api',
+      }),
+    );
+  }
+
+  const stateResponse = JSON.parse(message.state.serialized) as StateSchema
   
   if (message?.button == 1){
     return new NextResponse(
@@ -21,10 +52,16 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           {
             action: 'post_redirect',
             label: 'View',
-            target: "https://rick-frame-m413.vercel.app/",
+            target: "https://rick-frame-m413.vercel.app",
           },
         ],
-        image: "https://rick-frame-m413.vercel.app/attack.webp",
+        image: {
+          src: "https://rick-frame-m413.vercel.app/attack.webp",
+          aspectRatio: "1:1"
+        },
+        state: {
+          counter: stateResponse.counter - 1
+        },
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
@@ -41,16 +78,21 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             {
               action: 'post_redirect',
               label: 'View',
-              target: "https://rick-frame-m413.vercel.app/",
+              target: "https://rick-frame-m413.vercel.app",
             },
           ],
-          image: "https://rick-frame-m413.vercel.app/heal.webp",
+          image: {
+            src:"https://rick-frame-m413.vercel.app/heal.webp",
+            aspectRatio: "1:1"
+          },
+          state: {
+            counter: stateResponse.counter + 1
+          },
           postUrl: 'https://rick-frame-m413.vercel.app/api',
         }),
       );
   } else {
     return new NextResponse(
-      //  https://bg3.wiki/w/images/d/d5/Extra_Attack.webp
       getFrameHtmlResponse({
         buttons: [
           {
@@ -62,10 +104,16 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           {
             action: 'post_redirect',
             label: 'View',
-            target: "https://rick-frame-m413.vercel.app/",
+            target: "https://rick-frame-m413.vercel.app",
           },
         ],
-        image:  "https://rick-frame-m413.vercel.app/dragon.webp",
+        image: {
+          src:"https://rick-frame-m413.vercel.app/dragon.webp",
+          aspectRatio: "1:1"
+        },
+        state: {
+          counter: stateResponse.counter
+        },
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
