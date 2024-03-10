@@ -2,17 +2,18 @@ import { getFrameHtmlResponse, FrameRequest, getFrameMessage  } from '@coinbase/
 import { NextRequest, NextResponse } from 'next/server';
 
 
-// interface StateSchema {
-//   counter: number;
-// }
+interface StateSchema {
+  counter: number;
+}
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
-
   const frameRequest: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(frameRequest); 
   if (!isValid) {
     // skip validation for now
   }
+
+  const stateResponse = JSON.parse(message?.state.serialized as string) as StateSchema
 
   if (message?.button == 1){
     return new NextResponse(
@@ -34,9 +35,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           src: "https://rick-frame-m413.vercel.app/attack.webp",
           aspectRatio: "1:1"
         },
-        // state: {
-        //   counter: stateResponse.counter - 1
-        // },
+        state: {
+          counter: stateResponse.counter - 1
+        },
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
@@ -60,9 +61,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             src:"https://rick-frame-m413.vercel.app/heal.webp",
             aspectRatio: "1:1"
           },
-          // state: {
-          //   counter: stateResponse.counter + 1
-          // },
+          state: {
+            counter: stateResponse.counter + 1
+          },
           postUrl: 'https://rick-frame-m413.vercel.app/api',
         }),
       );
@@ -86,9 +87,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           src:"https://rick-frame-m413.vercel.app/dragon.webp",
           aspectRatio: "1:1"
         },
-        // state: {
-        //   counter: stateResponse.counter
-        // },
+        state: {
+          counter: stateResponse.counter
+        },
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
