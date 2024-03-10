@@ -16,7 +16,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   console.log("message:", message)
   console.log("state:", message?.state)
   console.log("serialized state:", message?.state.serialized)
-  const stateResponse = JSON.parse(message?.state.serialized as string) as StateSchema
+  console.log("serialized action:", message?.raw.action)
+  console.log("serialized action state:", message?.raw.action.state)
+  const stateResponse = JSON.parse(message?.raw.action.state.serialized as string) as StateSchema
 
   if (message?.button == 1){
     return new NextResponse(
