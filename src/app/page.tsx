@@ -21,9 +21,6 @@ export default function Home() {
        src: "https://rick-frame-m413.vercel.app/dragon.webp",
        aspectRatio: '1:1'
       }}
-      state={{
-        counter: 100000,
-      }}
       postUrl="https://rick-frame-m413.vercel.app/api"
     />
   );
