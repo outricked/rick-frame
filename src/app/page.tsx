@@ -1,6 +1,7 @@
 import { FrameMetadata } from '@coinbase/onchainkit/frame';
 
 export default function Home() {
+  console.log("home")
   return (
     <FrameMetadata
       buttons={[
