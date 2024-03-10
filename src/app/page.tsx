@@ -28,7 +28,7 @@ export default function Home() {
       state={{
         counter: 1,
       }}
-      postUrl="https://rick-frame-m413.vercel.app"
+      postUrl="https://rick-frame-m413.vercel.app/api"
     />
   );
 }
