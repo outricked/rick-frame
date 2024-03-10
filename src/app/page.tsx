@@ -17,7 +17,7 @@ export default function Home() {
         },
       ]}
       image={{
-       src: "https://rick-frame-m413.vercel.app/dragon",
+       src: "https://rick-frame-m413.vercel.app/dragon.webp",
        aspectRatio: '1:1'
       }}
       input={{

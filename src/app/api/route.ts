@@ -24,7 +24,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             target: "https://rick-frame-m413.vercel.app/",
           },
         ],
-        image: "https://rick-frame-m413.vercel.app/attack",
+        image: "https://rick-frame-m413.vercel.app/attack.webp",
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
@@ -44,7 +44,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
               target: "https://rick-frame-m413.vercel.app/",
             },
           ],
-          image: "https://rick-frame-m413.vercel.app/heal",
+          image: "https://rick-frame-m413.vercel.app/heal.webp",
           postUrl: 'https://rick-frame-m413.vercel.app/api',
         }),
       );
@@ -65,7 +65,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             target: "https://rick-frame-m413.vercel.app/",
           },
         ],
-        image:  "https://rick-frame-m413.vercel.app/dragon",
+        image:  "https://rick-frame-m413.vercel.app/dragon.webp",
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
