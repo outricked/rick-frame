@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { FrameMetadata } from '@coinbase/onchainkit/frame';
 
 export default function Home() {
@@ -18,7 +17,7 @@ export default function Home() {
         },
       ]}
       image={{
-       src: 'https://en.wikipedia.org/wiki/Dragon#/media/File:Friedrich-Johann-Justin-Bertuch_Mythical-Creature-Dragon_1806.jpg',
+       src: "https://rick-frame-m413.vercel.app/dragon",
        aspectRatio: '1:1'
       }}
       input={{

@@ -8,7 +8,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     // skip validation for now
   }
   
-  if (message?.button == 0){
+  if (message?.button == 1){
     return new NextResponse(
       getFrameHtmlResponse({
         buttons: [
@@ -24,13 +24,12 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             target: "https://rick-frame-m413.vercel.app/",
           },
         ],
-        image: 'https://bg3.wiki/w/images/d/d5/Extra_Attack.webp',
+        image: "https://rick-frame-m413.vercel.app/attack",
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
-  } else if (message?.button == 1) {
+  } else if (message?.button == 2) {
       return new NextResponse(
-        //  https://bg3.wiki/w/images/d/d5/Extra_Attack.webp
         getFrameHtmlResponse({
           buttons: [
             {
@@ -45,7 +44,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
               target: "https://rick-frame-m413.vercel.app/",
             },
           ],
-          image: 'https://static.wikia.nocookie.net/elseworlds/images/d/d4/Heal.jpg/revision/latest?cb=20150314045620',
+          image: "https://rick-frame-m413.vercel.app/heal",
           postUrl: 'https://rick-frame-m413.vercel.app/api',
         }),
       );
@@ -66,7 +65,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             target: "https://rick-frame-m413.vercel.app/",
           },
         ],
-        image: 'https://en.wikipedia.org/wiki/Dragon#/media/File:Friedrich-Johann-Justin-Bertuch_Mythical-Creature-Dragon_1806.jpg',
+        image:  "https://rick-frame-m413.vercel.app/dragon",
         postUrl: 'https://rick-frame-m413.vercel.app/api',
       }),
     );
