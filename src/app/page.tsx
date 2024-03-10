@@ -6,20 +6,19 @@ export default function Home() {
     <FrameMetadata
       buttons={[
         {
-          label: 'Tell me the story',
+          label: 'Attack',
         },
         {
-          action: 'link',
-          label: 'Link to Google',
-          target: 'https://www.google.com'
+          label: 'Heal',
         },
         {
           action: 'post_redirect',
-          label: 'Redirect to cute pictures',
+          label: 'View',
+          target: "https://rick-frame-m413.vercel.app/",
         },
       ]}
       image={{
-       src: 'https://zizzamia.xyz/park-3.png',
+       src: 'https://en.wikipedia.org/wiki/Dragon#/media/File:Friedrich-Johann-Justin-Bertuch_Mythical-Creature-Dragon_1806.jpg',
        aspectRatio: '1:1'
       }}
       input={{
