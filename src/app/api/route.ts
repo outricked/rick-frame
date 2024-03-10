@@ -10,7 +10,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const frameRequest: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(frameRequest); 
   if (!isValid) {
-    // skip validation for now
+    console.log("not valid")
   }
 
   console.log("message:", message)
@@ -18,8 +18,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   let stateResponse;
   if (message?.state.serialized == "") {
     stateResponse = {counter: 100000} as StateSchema
+  } else {
+    stateResponse = JSON.parse(message?.raw.action.state.serialized as string) as StateSchema
   }
-  stateResponse = JSON.parse(message?.raw.action.state.serialized as string) as StateSchema
 
   if (message?.button == 1){
     return new NextResponse(
