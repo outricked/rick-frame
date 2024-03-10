@@ -13,6 +13,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     // skip validation for now
   }
 
+  console.log("message:", message)
+  console.log("state:", message?.state)
+  console.log("serialized state:", message?.state.serialized)
   const stateResponse = JSON.parse(message?.state.serialized as string) as StateSchema
 
   if (message?.button == 1){
