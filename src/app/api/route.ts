@@ -16,7 +16,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     console.log("not valid")
   }
 
-  const dragon_health = kv.get("dragon_health")
+  const dragon_health = await kv.get("dragon_health")
   if (dragon_health == null){
     console.log("dragon health is not set")
     await kv.set("dragon_health", 100000)
@@ -56,7 +56,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       }),
     );
   } else if (message?.button == 2) {
-      const new_health = kv.decr("dragon_health")
+      const new_health = await kv.decr("dragon_health")
       return new NextResponse(
         getFrameHtmlResponse({
           buttons: [
