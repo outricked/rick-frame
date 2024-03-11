@@ -9,10 +9,6 @@ const dragon_url = frame_url+"dragon.wepb";
 const attack_url = frame_url+"attack.wepb";
 const heal_url = frame_url+"heal.wepb";
 
-interface StateSchema {
-  counter: number;
-}
-
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const frameRequest: FrameRequest = await req.json();
   const { isValid, message } = await getFrameMessage(frameRequest); 
