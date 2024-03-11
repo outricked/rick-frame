@@ -3,7 +3,7 @@ import { FrameMetadata } from '@coinbase/onchainkit/frame';
 
 const frame_url = process.env.FRAME_URL as string;
 const api_url = frame_url+"api";
-const dragon_url = frame_url+"dragon.wepb";
+const dragon_url = frame_url+"dragon.webp";
 
 export default function Home() {
   console.log("home")

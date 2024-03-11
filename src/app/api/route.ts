@@ -5,9 +5,9 @@ import { kv } from '@vercel/kv';
 
 const frame_url = process.env.FRAME_URL as string;
 const api_url = frame_url+"api";
-const dragon_url = frame_url+"dragon.wepb";
-const attack_url = frame_url+"attack.wepb";
-const heal_url = frame_url+"heal.wepb";
+const dragon_url = frame_url+"dragon.webp";
+const attack_url = frame_url+"attack.webp";
+const heal_url = frame_url+"heal.webp";
 
 async function getResponse(req: NextRequest): Promise<NextResponse> {
   const frameRequest: FrameRequest = await req.json();
