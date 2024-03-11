@@ -29,7 +29,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   console.log("raw:", message?.raw)
 
   if (message?.button == 1){
-    const new_health = await kv.incr("dragon_health")
+    const new_health = await kv.decr("dragon_health")
     return new NextResponse(
       getFrameHtmlResponse({
         buttons: [
@@ -56,7 +56,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
       }),
     );
   } else if (message?.button == 2) {
-      const new_health = await kv.decr("dragon_health")
+      const new_health = await kv.incr("dragon_health")
       return new NextResponse(
         getFrameHtmlResponse({
           buttons: [
