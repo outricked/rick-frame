@@ -1,5 +1,10 @@
 import { FrameMetadata } from '@coinbase/onchainkit/frame';
 
+
+const frame_url = process.env.FRAME_URL as string;
+const api_url = frame_url+"api";
+const dragon_url = frame_url+"dragon.wepb";
+
 export default function Home() {
   console.log("home")
   return (
@@ -14,14 +19,14 @@ export default function Home() {
         {
           action: 'post_redirect',
           label: 'View',
-          target: "https://rick-frame-m413.vercel.app",
+          target: frame_url,
         },
       ]}
       image={{
-       src: "https://rick-frame-m413.vercel.app/dragon.webp",
+       src: dragon_url,
        aspectRatio: '1:1'
       }}
-      postUrl="https://rick-frame-m413.vercel.app/api"
+      postUrl={api_url}
     />
   );
 }

@@ -1,6 +1,13 @@
 import { getFrameHtmlResponse, FrameRequest, getFrameMessage  } from '@coinbase/onchainkit/frame';
 import { NextRequest, NextResponse } from 'next/server';
+import { kv } from '@vercel/kv';
 
+
+const frame_url = process.env.FRAME_URL as string;
+const api_url = frame_url+"api";
+const dragon_url = frame_url+"dragon.wepb";
+const attack_url = frame_url+"attack.wepb";
+const heal_url = frame_url+"heal.wepb";
 
 interface StateSchema {
   counter: number;
@@ -15,14 +22,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
 
   console.log("message:", message)
   console.log("raw:", message?.raw)
-  let stateResponse;
-  if (message?.state.serialized == "") {
-    stateResponse = {counter: 100000} as StateSchema
-  } else {
-    stateResponse = JSON.parse(decodeURIComponent(message?.raw.action.state.serialized as string)) as StateSchema
-  }
 
   if (message?.button == 1){
+    await kv.incr("dragon_health")
     return new NextResponse(
       getFrameHtmlResponse({
         buttons: [
@@ -35,20 +37,18 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           {
             action: 'post_redirect',
             label: 'View',
-            target: "https://rick-frame-m413.vercel.app",
+            target: api_url,
           },
         ],
         image: {
-          src: "https://rick-frame-m413.vercel.app/attack.webp",
+          src: attack_url,
           aspectRatio: "1:1"
         },
-        state: {
-          counter: stateResponse.counter - 1
-        },
-        postUrl: 'https://rick-frame-m413.vercel.app/api',
+        postUrl: api_url,
       }),
     );
   } else if (message?.button == 2) {
+      kv.decr("dragon_health")
       return new NextResponse(
         getFrameHtmlResponse({
           buttons: [
@@ -61,17 +61,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
             {
               action: 'post_redirect',
               label: 'View',
-              target: "https://rick-frame-m413.vercel.app",
+              target: api_url,
             },
           ],
           image: {
-            src:"https://rick-frame-m413.vercel.app/heal.webp",
+            src: heal_url,
             aspectRatio: "1:1"
           },
-          state: {
-            counter: stateResponse.counter + 1
-          },
-          postUrl: 'https://rick-frame-m413.vercel.app/api',
+          postUrl: api_url,
         }),
       );
   } else {
@@ -87,17 +84,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           {
             action: 'post_redirect',
             label: 'View',
-            target: "https://rick-frame-m413.vercel.app",
+            target: api_url,
           },
         ],
         image: {
-          src:"https://rick-frame-m413.vercel.app/dragon.webp",
+          src: dragon_url,
           aspectRatio: "1:1"
         },
-        state: {
-          counter: stateResponse.counter
-        },
-        postUrl: 'https://rick-frame-m413.vercel.app/api',
+        postUrl: api_url,
       }),
     );
   }
