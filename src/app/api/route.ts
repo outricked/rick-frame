@@ -16,11 +16,20 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     console.log("not valid")
   }
 
+  const dragon_health = kv.get("dragon_health")
+  if (dragon_health == null){
+    console.log("dragon health is not set")
+    await kv.set("dragon_health", 100000)
+  } else {
+    console.log("dragon health is set: ", dragon_health)
+  }
+
+
   console.log("message:", message)
   console.log("raw:", message?.raw)
 
   if (message?.button == 1){
-    await kv.incr("dragon_health")
+    const new_health = await kv.incr("dragon_health")
     return new NextResponse(
       getFrameHtmlResponse({
         buttons: [
@@ -40,11 +49,14 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           src: attack_url,
           aspectRatio: "1:1"
         },
+        state: {
+          count: new_health
+        },
         postUrl: api_url,
       }),
     );
   } else if (message?.button == 2) {
-      kv.decr("dragon_health")
+      const new_health = kv.decr("dragon_health")
       return new NextResponse(
         getFrameHtmlResponse({
           buttons: [
@@ -63,6 +75,9 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
           image: {
             src: heal_url,
             aspectRatio: "1:1"
+          },
+          state: {
+            count: new_health
           },
           postUrl: api_url,
         }),
